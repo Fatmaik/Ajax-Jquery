@@ -24,6 +24,7 @@
             </div>
             <button type="submit" class="btn btn-info">Submit</button>
         </form>
+        <?php require_once "post.php"; ?>
     </section>
 </main>
 
