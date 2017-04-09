@@ -9,7 +9,10 @@ $(document).ready(function() {
             dataType : "json"
         });
         request.always(function(e) {
-            console.log(e.name);
+            console.log(e);
+            for(var k in e) {
+                $(":input[name=" +k+ "]").val(e[k]);
+            }
         })
     })
 })
