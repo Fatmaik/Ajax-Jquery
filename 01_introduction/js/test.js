@@ -3,16 +3,21 @@ $(document).ready(function() {
         
         var form = $(this).serialize();
         var request = $.ajax({
-            method : "GET",
-            url : "post.php",
-            data : form,//{ nome : $(":input[name=name]").val()},
+            methos : "GET",
+            url    : "post.php",
+            data   : form,
             dataType : "json"
-        });
-        request.always(function(e) {
-            console.log(e);
-            for(var k in e) {
-                $(":input[name=" +k+ "]").val(e[k]);
-            }
         })
+        
+        request.done(function(e) {
+            $("#msg").html(e.msg);
+            if(e.status == "true") {
+                $("#AjaxRequest").each(function() {
+                    this.reset();
+                })
+            }   
+        });
+        
+        return false;
     })
 })

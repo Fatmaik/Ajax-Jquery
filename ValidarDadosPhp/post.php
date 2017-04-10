@@ -9,12 +9,34 @@ if($_GET) {
         echo json_encode(["status"=>false, "msg"=>"Fill a name"]);exit;
     }
     if($email == "") {
-        echo json_encode(["status"=>FALSE, "msg"=>"Fill a email"]);exit;
+        echo json_encode(["status"=>false, "msg"=>"Fill a email"]);exit;
     }
     if($tel == "") {
-        echo json_encode(["status"=>FALSE, "msg"=>"Fill a Tel"]);exit;
+        echo json_encode(["status"=>false, "msg"=>"Fill a Tel"]);exit;
     }
-    echo json_encode(["status"=>TRUE, "msg"=>"Success"]);exit;
-    // echo json_encode($_POST);exit;
-}
+    $id = insert($post);
+    if(id) {
+        echo json_encode(["status"=>true, "msg"=>"Success"]);exit;
 
+    }else{
+        echo json_encode(["status"=>true, "msg"=>"Falhou"]);exit;
+    }
+    
+}
+function conn() {
+    try{
+        return $pdo = new \PDO("mysql:dbname=farmacia;host=localhost", "root", "rancid");
+    }catch(PDOException $e) {
+        Echo "falhou: DB";
+    }
+}
+function insert($post) {
+    $con = conn();
+    $ins = "INSERT INTO clientes SET nome = {$post['name']}, email = {$post['email']}, senha = {$post['tel']}";
+    $query = $con->prepare($ins);
+    // $query->bindValue("?", $post['name']);
+    // $query->bindValue("?", $post['email']);
+    // $query->bindValue("?", $post['tel']);
+    $query->execute();
+    return $con->lastInsertId();
+}

@@ -25,11 +25,11 @@
             </div>
             <button type="submit" class="btn btn-info">Submit</button>
         </form>
-        
+        <?php require_once "post.php";?>
     </section>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="js/main.js"></script>
+<script src="js/test.js"></script>
 </body>
 </html>
