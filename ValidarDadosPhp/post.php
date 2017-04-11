@@ -5,6 +5,8 @@ if($_GET) {
     $email = $_GET['email'];
     $tel = $_GET['tel'];
     
+
+    
     if($name == "") {
         echo json_encode(["status"=>false, "msg"=>"Fill a name"]);exit;
     }

@@ -11,11 +11,7 @@ $(document).ready(function() {
         
         request.done(function(e) {
             $("#msg").html(e.msg);
-            if(e.status == "true") {
-                $("#AjaxRequest").each(function() {
-                    this.reset();
-                })
-            }   
+              
         });
         
         return false;

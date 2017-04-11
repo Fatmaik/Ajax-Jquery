@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>Ajax request with jQuery</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
+    
 </head>
 <body>
 <main>
-    <section class="container">
+    <?php require_once 'test2.php';$test = new Get();?>
+    <section class="container"> 
         <h1>Ajax request with jQuery</h1>
-        <span id="msg"></span>
-        <form id="AjaxRequest">
+        <span id="msg"><?php echo $test->info();?></span><br><br>
+        <form id="AjaxRequest" method="GET">
+        
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" class="form-control" name="name" placeholder="Name">
@@ -23,13 +26,22 @@
                 <label>Telephone</label>
                 <input type="text" class="form-control" name="tel" placeholder="Telephone">
             </div>
-            <button type="submit" class="btn btn-info">Submit</button>
+            <button type="submit" class="btn btn-info" name="sub">Submit</button>
         </form>
-        <?php require_once "post.php";?>
+        <?php 
+        require_once 'test2.php';
+        
+       
+        echo $test->selectIgual();
+        
+        // echo $test->getNome();
+        // echo "<br>" . empty($_POST);
+        // echo "<br>" . $_GET["name"];
+        ?>
     </section>
 </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="js/test.js"></script>
 </body>
 </html>
