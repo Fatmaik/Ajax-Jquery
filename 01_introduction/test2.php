@@ -4,27 +4,38 @@ class Get{
     private $nome;
     private $email;
     private $tel;
+    private $status;
+    private $status1;
     private $count;
-    
-    
+ 
     public function info() {
         if($_GET) {
             $this->nome = $_GET['name'];
             $this->email = $_GET['email'];
             $this->tel = $_GET['tel'];
-            $sub = $_GET['sub'];
-      
+            
+            // $sub = $_GET['sub'];
+           
             if($this->nome == "") {
-                return "Preencha o nome:";exit;
+                $this->setStatus("Nao adicionou o nome:");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
             }
             if($this->email == "") {  
-                return "Preencha o email:";exit;
+                $this->setStatus("Nao adicionou o email:");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
             }
             if($this->tel == "") {               
-                return "Preencha o telefone?";exit;
+                $this->setStatus("Nao adicionou o telefone?");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
+            }else{
+                $this->setStatus("DONE");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
             }
-         }
-         
+         }      
     }
     public function con() {
         try{
@@ -52,10 +63,26 @@ class Get{
             
         if($this->getCount() <= 0 && $this->getNome() != "" && $this->getEmail() != "" && $this->getTel() != "") {
             $this->insert();
-            return "Cadastro concluido";
+            $this->setStatus1("Cadastro concluido");
+            $_GET['status1'] = $this->getStatus1();
+            return json_encode($_GET);
         }else{
-            return  "Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.";exit;
+            $this->setStatus1("Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.");
+            $_GET['status1'] = $this->getStatus1();
+            return json_encode($_GET);
+            
         } 
+    }
+    public function selectAll() {
+        $pdo = $this->con();
+        $query = $pdo->prepare("SELECT * FROM test1");
+        $query->execute();
+        $sel = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+        foreach($sel as $info) {
+            $_GET["selId"] = "teste";//$info["id"];
+        }
+        return json_encode($_GET);
     }
     
     public function getNome() {
@@ -73,11 +100,26 @@ class Get{
     public function setCount($c) {
         $this->count = $c;
     }
+    public function setStatus($st) {
+        $this->status = $st;
+    }
+    public function getStatus() {
+        return $this->status;
+    }
+    public function setStatus1($st) {
+        $this->status1 = $st;
+    }
+    public function getStatus1() {
+        return $this->status1;
+    }
+
     
    
 }
-    
 
+$test = new Get();
+echo $test->info();
+$test->selectIgual();
        
     
  

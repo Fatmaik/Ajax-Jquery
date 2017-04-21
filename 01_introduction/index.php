@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Ajax request with jQuery</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
-    
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 <main>
-    <?php require_once 'test2.php';$test = new Get();?>
+   
     <section class="container"> 
         <h1>Ajax request with jQuery</h1>
-        <span id="msg"><?php echo $test->info();?></span><br><br>
+        <span id="status"> </span><br><br>
         <form id="AjaxRequest" method="GET">
         
             <div class="form-group">
@@ -28,20 +29,24 @@
             </div>
             <button type="submit" class="btn btn-info" name="sub">Submit</button>
         </form>
-        <?php 
-        require_once 'test2.php';
+       <span id="status1"> </span><br><br>
+        <div class="row">
         
-       
-        echo $test->selectIgual();
-        
-        // echo $test->getNome();
-        // echo "<br>" . empty($_POST);
-        // echo "<br>" . $_GET["name"];
-        ?>
+            <table id="contacts" class="table" scope="row">
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Telephone</th></tr></thead>
+                <!--<tbody>-->
+                <!--<tr scope="row">
+                    <td>test</td>
+                    <td id="tdName">Mark</td>
+                    <td id="tdEmail">Otto</td>
+                    <td id="tdTel">@mdo</td>
+                </tr>-->
+                <!--</tbody>-->
+            </table>
+        </div>
     </section>
 </main>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    
 
 </body>
 </html>
