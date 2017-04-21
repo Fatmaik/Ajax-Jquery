@@ -13,10 +13,8 @@ $(document).ready(function(){
         });
         request.done(function(e) {
                 $("#status").html(e.status);
-                $("#status1").html(e.status1);
-            
-            
         });
+        
         
         
     });

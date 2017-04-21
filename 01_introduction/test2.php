@@ -8,35 +8,9 @@ class Get{
     private $status1;
     private $count;
  
-    public function info() {
-        if($_GET) {
-            $this->nome = $_GET['name'];
-            $this->email = $_GET['email'];
-            $this->tel = $_GET['tel'];
-            
-            // $sub = $_GET['sub'];
-           
-            if($this->nome == "") {
-                $this->setStatus("Nao adicionou o nome:");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
-            }
-            if($this->email == "") {  
-                $this->setStatus("Nao adicionou o email:");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
-            }
-            if($this->tel == "") {               
-                $this->setStatus("Nao adicionou o telefone?");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
-            }else{
-                $this->setStatus("DONE");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
-            }
-         }      
-    }
+    // public function info() {
+             
+    // }
     public function con() {
         try{
             return $dsn = new PDO("mysql:dbname=test;host=localhost", "root", "rancid");
@@ -54,36 +28,63 @@ class Get{
         $query->execute();
     }
     public function selectIgual() {
-        $pdo = $this->con();
+        if($_GET) {
+            $this->nome = $_GET['name'];
+            $this->email = $_GET['email'];
+            $this->tel = $_GET['tel'];
+          
+            if($this->nome == "") {
+                $this->setStatus("Nao adicionou o nome:");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
+            }
+            if($this->email == "") {  
+                $this->setStatus("Nao adicionou o email:");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
+            }
+            if($this->tel == "") {               
+                $this->setStatus("Nao adicionou o telefone?");
+                $_GET['status'] = $this->getStatus();
+                return json_encode($_GET);
+            }else{
+                // $this->setStatus(" ");
+                // $_GET['status'] = $this->getStatus();
+                // return json_encode($_GET);
+                $pdo = $this->con();
             
-        $query = $pdo->prepare("SELECT * FROM test1 WHERE nome = :nome");
-        $query->bindValue(":nome", $this->getNome());
-        $query->execute();
-        $this->setCount($query->rowCount());
-            
-        if($this->getCount() <= 0 && $this->getNome() != "" && $this->getEmail() != "" && $this->getTel() != "") {
-            $this->insert();
-            $this->setStatus1("Cadastro concluido");
-            $_GET['status1'] = $this->getStatus1();
-            return json_encode($_GET);
-        }else{
-            $this->setStatus1("Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.");
-            $_GET['status1'] = $this->getStatus1();
-            return json_encode($_GET);
-            
-        } 
+                $query = $pdo->prepare("SELECT * FROM test1 WHERE nome = :nome");
+                $query->bindValue(":nome", $this->getNome());
+                $query->execute();
+                $this->setCount($query->rowCount());
+                    
+                if($this->getCount() <= 0 && $this->getNome() != "" && $this->getEmail() != "" && $this->getTel() != "") {
+                    $this->insert();
+                    $this->setStatus("Cadastro concluido");
+                    $_GET['status'] = $this->getStatus();
+                    return json_encode($_GET);
+                }else{
+                    $this->setStatus("Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.");
+                    $_GET['status'] = $this->getStatus();
+                    return json_encode($_GET);           
+                }
+            }
+         } 
+        
+        
+        
     }
-    public function selectAll() {
-        $pdo = $this->con();
-        $query = $pdo->prepare("SELECT * FROM test1");
-        $query->execute();
-        $sel = $query->fetchAll(\PDO::FETCH_ASSOC);
+    // public function selectAll() {
+    //     $pdo = $this->con();
+    //     $query = $pdo->prepare("SELECT * FROM test1");
+    //     $query->execute();
+    //     $sel = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-        foreach($sel as $info) {
-            $_GET["selId"] = "teste";//$info["id"];
-        }
-        return json_encode($_GET);
-    }
+    //     foreach($sel as $info) {
+    //         $_GET["selId"] = "teste";//$info["id"];
+    //     }
+    //     return json_encode($_GET);
+    // }
     
     public function getNome() {
         return $this->nome;
@@ -118,8 +119,9 @@ class Get{
 }
 
 $test = new Get();
-echo $test->info();
-$test->selectIgual();
-       
+echo $test->selectIgual();
+// echo $test->info();
+
+
     
  
