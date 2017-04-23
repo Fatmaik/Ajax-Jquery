@@ -34,14 +34,21 @@
         
             <table id="contacts" class="table" scope="row">
                 <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Telephone</th></tr></thead>
-                <!--<tbody>-->
-                <!--<tr scope="row">
-                    <td>test</td>
+                <tr>
+                <?php
+                require_once 'test2.php';
+                // echo $test->getCount();
+               
+                ?>
+                <!--</tr>
+                <tbody>
+                <tr scope="row">
+                    <td><?php echo $test->selectAll($id); ?></td>
                     <td id="tdName">Mark</td>
                     <td id="tdEmail">Otto</td>
                     <td id="tdTel">@mdo</td>
                 </tr>-->
-                <!--</tbody>-->
+                </tbody>
             </table>
         </div>
     </section>

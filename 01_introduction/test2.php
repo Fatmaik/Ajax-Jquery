@@ -1,16 +1,13 @@
 <?php
 
-class Get{
+class POST{
     private $nome;
     private $email;
     private $tel;
     private $status;
-    private $status1;
-    private $count;
- 
-    // public function info() {
-             
-    // }
+    public $count;
+    
+    // metodo para conexao do database
     public function con() {
         try{
             return $dsn = new PDO("mysql:dbname=test;host=localhost", "root", "rancid");
@@ -18,6 +15,7 @@ class Get{
             echo "falha Db:";
         }
     }
+    // metodo de insert 
     public function insert() {
         $pdo = $this->con();
         
@@ -27,64 +25,86 @@ class Get{
         $query->bindValue(":tel", $this->getTel());
         $query->execute();
     }
-    public function selectIgual() {
-        if($_GET) {
-            $this->nome = $_GET['name'];
-            $this->email = $_GET['email'];
-            $this->tel = $_GET['tel'];
+    // metodo para comparacao, se ja existe uma conta semelhante cadastrada
+    // se nao existir conflito no database o metodo cadastro chamao o metodo insert
+    public function cadastro() {
+        if($_POST) {
+            $this->nome = $_POST['name'];    // POST nome do formulario
+            $this->email = $_POST['email'];  // POST email do formulario
+            $this->tel = $_POST['tel'];      // POST tel do formulario
           
             if($this->nome == "") {
                 $this->setStatus("Nao adicionou o nome:");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
+                $_POST['status'] = $this->getStatus();
+                return json_encode($_POST);
             }
             if($this->email == "") {  
                 $this->setStatus("Nao adicionou o email:");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
+                $_POST['status'] = $this->getStatus();
+                return json_encode($_POST);
             }
             if($this->tel == "") {               
                 $this->setStatus("Nao adicionou o telefone?");
-                $_GET['status'] = $this->getStatus();
-                return json_encode($_GET);
+                $_POST['status'] = $this->getStatus();
+                return json_encode($_POST);
             }else{
-                // $this->setStatus(" ");
-                // $_GET['status'] = $this->getStatus();
-                // return json_encode($_GET);
                 $pdo = $this->con();
             
                 $query = $pdo->prepare("SELECT * FROM test1 WHERE nome = :nome");
                 $query->bindValue(":nome", $this->getNome());
                 $query->execute();
                 $this->setCount($query->rowCount());
-                    
+
+                // condicao que compara cadastro ja existente e campos vazios   
                 if($this->getCount() <= 0 && $this->getNome() != "" && $this->getEmail() != "" && $this->getTel() != "") {
                     $this->insert();
                     $this->setStatus("Cadastro concluido");
-                    $_GET['status'] = $this->getStatus();
-                    return json_encode($_GET);
+                    $_POST['status'] = $this->getStatus();
+                    return json_encode($_POST);
                 }else{
                     $this->setStatus("Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.");
-                    $_GET['status'] = $this->getStatus();
-                    return json_encode($_GET);           
-                }
+                    $_POST['status'] = $this->getStatus();
+                    return json_encode($_POST);           
+                }                
             }
-         } 
-        
-        
+         }
         
     }
-    // public function selectAll() {
-    //     $pdo = $this->con();
-    //     $query = $pdo->prepare("SELECT * FROM test1");
-    //     $query->execute();
-    //     $sel = $query->fetchAll(\PDO::FETCH_ASSOC);
+    
+    public function selectAll() {
+        $pdo = $this->con();
+        $query = $pdo->prepare("SELECT * FROM test1");
+        $query->execute();
+        $sel = $query->fetchAll();
 
-    //     foreach($sel as $info) {
-    //         $_GET["selId"] = "teste";//$info["id"];
-    //     }
-    //     return json_encode($_GET);
-    // }
+       
+        foreach($sel as $info) {
+            $_GET["id"] = $info["id"];
+            $_GET["nome"]= $info["nome"];
+            $_GET["email"]= $info["email"];
+            $_GET["tel"] = $info["tel"];
+            
+            
+        }
+        
+        return json_encode(["id"=>$_GET["id"],
+                          "nome"=>$_GET["nome"],
+                          "email"=>$_GET["email"],
+                          "tel"=>$_GET["tel"],
+                        //   "count"=>$_GET['count']
+                        ]);
+
+        // foreach($sel as $info) {
+        //     $id = $info['id'];
+        //     $nome = $info['nome'];
+        //     $nome = $info['email'];
+        //     $tel = $info['tel'];
+            
+            
+        // }
+        // echo $text;
+        
+    }
     
     public function getNome() {
         return $this->nome;
@@ -113,15 +133,14 @@ class Get{
     public function getStatus1() {
         return $this->status1;
     }
-
-    
-   
 }
 
-$test = new Get();
-echo $test->selectIgual();
-// echo $test->info();
+$test = new POST();
+echo $test->cadastro();
+echo $test->selectAll();
 
-
+// fazer o selectAll() funcionar/
+// se colocar 2 metodos com echo ao mesmo tempo .. o primeiro para de funcionar
+// receber valor do count com a array $_GET;
     
  
