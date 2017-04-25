@@ -12,7 +12,7 @@
    
     <section class="container"> 
         <h1>Ajax request with jQuery</h1>
-        <span id="status"> </span><br><br>
+        <span id="status"><?php require_once 'test2.php'; echo $test->cadastro();?> </span><br><br>
         <form id="AjaxRequest" method="GET">
         
             <div class="form-group">
@@ -29,26 +29,12 @@
             </div>
             <button type="submit" class="btn btn-info" name="sub">Submit</button>
         </form>
-       <span id="status1"> </span><br><br>
+        <span id="status1"> </span><br><br>
+        <h3 align='center'>Paginacao de Contatatos</h3><br>
         <div class="row">
-        
             <table id="contacts" class="table" scope="row">
-                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Telephone</th></tr></thead>
-                <tr>
-                <?php
-                require_once 'test2.php';
-                // echo $test->getCount();
-               
-                ?>
-                <!--</tr>
-                <tbody>
-                <tr scope="row">
-                    <td><?php echo $test->selectAll($id); ?></td>
-                    <td id="tdName">Mark</td>
-                    <td id="tdEmail">Otto</td>
-                    <td id="tdTel">@mdo</td>
-                </tr>-->
-                </tbody>
+                <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Telephone</th></tr></thead><tr>
+                
             </table>
         </div>
     </section>

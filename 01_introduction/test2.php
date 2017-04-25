@@ -35,18 +35,23 @@ class POST{
           
             if($this->nome == "") {
                 $this->setStatus("Nao adicionou o nome:");
-                $_POST['status'] = $this->getStatus();
-                return json_encode($_POST);
+                // $_POST['status'] = $this->getStatus();
+                $status = $this->getStatus();
+                return json_encode(["status"=>$status]); 
             }
             if($this->email == "") {  
                 $this->setStatus("Nao adicionou o email:");
-                $_POST['status'] = $this->getStatus();
-                return json_encode($_POST);
+                // $_POST['status'] = $this->getStatus();
+                // return json_encode($_POST);
+                $status = $this->getStatus();
+                return json_encode(["status"=>$status]); 
             }
             if($this->tel == "") {               
                 $this->setStatus("Nao adicionou o telefone?");
-                $_POST['status'] = $this->getStatus();
-                return json_encode($_POST);
+                // $_POST['status'] = $this->getStatus();
+                // return json_encode($_POST);
+                $status = $this->getStatus();
+                return json_encode(["status"=>$status]); 
             }else{
                 $pdo = $this->con();
             
@@ -59,51 +64,28 @@ class POST{
                 if($this->getCount() <= 0 && $this->getNome() != "" && $this->getEmail() != "" && $this->getTel() != "") {
                     $this->insert();
                     $this->setStatus("Cadastro concluido");
-                    $_POST['status'] = $this->getStatus();
-                    return json_encode($_POST);
+                    // $_POST['status'] = $this->getStatus();
+                    // return json_encode($_POST);
+                    $status = $this->getStatus();
+                    return json_encode(["status"=>$status]); 
                 }else{
                     $this->setStatus("Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.");
-                    $_POST['status'] = $this->getStatus();
-                    return json_encode($_POST);           
+                    // $_POST['status'] = $this->getStatus();
+                    // return json_encode($_POST);    
+                    $status = $this->getStatus();
+                    return json_encode(["status"=>$status]);      
                 }                
             }
          }
         
     }
-    
     public function selectAll() {
         $pdo = $this->con();
         $query = $pdo->prepare("SELECT * FROM test1");
         $query->execute();
         $sel = $query->fetchAll();
-
-       
-        foreach($sel as $info) {
-            $_GET["id"] = $info["id"];
-            $_GET["nome"]= $info["nome"];
-            $_GET["email"]= $info["email"];
-            $_GET["tel"] = $info["tel"];
-            
-            
-        }
-        
-        return json_encode(["id"=>$_GET["id"],
-                          "nome"=>$_GET["nome"],
-                          "email"=>$_GET["email"],
-                          "tel"=>$_GET["tel"],
-                        //   "count"=>$_GET['count']
-                        ]);
-
-        // foreach($sel as $info) {
-        //     $id = $info['id'];
-        //     $nome = $info['nome'];
-        //     $nome = $info['email'];
-        //     $tel = $info['tel'];
-            
-            
-        // }
-        // echo $text;
-        
+      
+        return json_encode($sel);      
     }
     
     public function getNome() {
@@ -136,11 +118,9 @@ class POST{
 }
 
 $test = new POST();
-echo $test->cadastro();
-echo $test->selectAll();
+echo $test->cadastro() . $test->selectAll();
 
-// fazer o selectAll() funcionar/
-// se colocar 2 metodos com echo ao mesmo tempo .. o primeiro para de funcionar
-// receber valor do count com a array $_GET;
+
+
     
  

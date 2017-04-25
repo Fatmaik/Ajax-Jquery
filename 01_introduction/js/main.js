@@ -1,24 +1,4 @@
 $(document).ready(function(){
-//    var table = $.ajax({
-//        method: "GET",
-//        url   : "test2.php",
-//        data  : {table : "$sel"},
-//        dataType : "json",
-//    });
-//    table.always(function(e) {
-//        alert(e.table);
-//    })
-//    table.done(function(e) {
-//        alert("tteastr");
-//         var x = "";
-//         for(var i=1; i<10; i++) {
-//             x += "<td>" + e.id + "</td>" + 
-//                 "<td>dionathan</td>" +
-//                 "<td id='tdEmail'>Otto</td>" +
-//                 "<td id='tdTel'>@mdo</td>" + "</tr>";
-//         }
-//         $(".table").html(x);
-//    })
 
    // requiest acontece quando o formulario settar o submit
     $("#AjaxRequest").submit(function(prevent){
@@ -33,37 +13,25 @@ $(document).ready(function(){
         });
         request.done(function(e) {
                 $("#status").html(e.status);
-                
         });    
     });
-
+ 
     var sel = $.ajax({
         method   : "GET",
         url      : "test2.php",
-        data     : {id : "", nome: "", email : "", tel : "", count1 : ""},
+        data     : {GET : "GET"}, // retornando o FetchAll do metodo PHP para dentro deste "GET"
         dataType : "json"
     }).done(function(table) {
-        // alert(table.count);
         var x = $(".table").html();
         
-        // for(var i=1; i<10; i++) {
+        $.each(table, function(ind) {
             
-        //     x += "<td>" + table.id+ "</td>";
-        //     x += "<td>" + table.nome + "</td>";
-        //     x += "<td>" + table.email + "</td>";
-        //     x += "<td>" + table.tel + "</td>" + "</tr>"; 
-        //     $("#contacts").html(x);
-        // }
-        
-        $.each(table, function(ind, vlor) {
-            
-            x += "<td>" + table.id+ "</td>";
-            x += "<td>" + table.nome + "</td>";
-            x += "<td>" + table.email + "</td>";
-            x += "<td>" + table.count + "</td>" + "</tr>"; 
-            
-        });
+            x += "<td>" + table[ind].id+ "</td>";
+            x += "<td>" + table[ind].nome + "</td>";
+            x += "<td>" + table[ind].email + "</td>";
+            x += "<td>" + table[ind].tel + "</td>" + "</tr>"; 
+        });  
         $("#contacts").html(x);
-        
      })
+     
 });
