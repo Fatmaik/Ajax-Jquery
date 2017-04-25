@@ -118,7 +118,7 @@ class POST{
 }
 
 $test = new POST();
-echo $test->cadastro() . $test->selectAll();
+$test->cadastro() . $test->selectAll();
 
 
 
