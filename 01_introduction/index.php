@@ -12,7 +12,7 @@
    
     <section class="container"> 
         <h1>Ajax request with jQuery</h1>
-        <span id="status"><?php require_once 'test2.php'; echo $test->cadastro();?> </span><br><br>
+        <span id="status"></span><br><br>
         <form id="AjaxRequest" method="GET">
         
             <div class="form-group">

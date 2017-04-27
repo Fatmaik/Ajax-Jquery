@@ -35,21 +35,16 @@ class POST{
           
             if($this->nome == "") {
                 $this->setStatus("Nao adicionou o nome:");
-                // $_POST['status'] = $this->getStatus();
                 $status = $this->getStatus();
                 return json_encode(["status"=>$status]); 
             }
             if($this->email == "") {  
                 $this->setStatus("Nao adicionou o email:");
-                // $_POST['status'] = $this->getStatus();
-                // return json_encode($_POST);
                 $status = $this->getStatus();
                 return json_encode(["status"=>$status]); 
             }
             if($this->tel == "") {               
                 $this->setStatus("Nao adicionou o telefone?");
-                // $_POST['status'] = $this->getStatus();
-                // return json_encode($_POST);
                 $status = $this->getStatus();
                 return json_encode(["status"=>$status]); 
             }else{
@@ -64,14 +59,10 @@ class POST{
                 if($this->getCount() <= 0 && $this->getNome() != "" && $this->getEmail() != "" && $this->getTel() != "") {
                     $this->insert();
                     $this->setStatus("Cadastro concluido");
-                    // $_POST['status'] = $this->getStatus();
-                    // return json_encode($_POST);
                     $status = $this->getStatus();
                     return json_encode(["status"=>$status]); 
                 }else{
                     $this->setStatus("Cadastro nao Permitido : Os campos estao vazios ou ja existe este cadastro.");
-                    // $_POST['status'] = $this->getStatus();
-                    // return json_encode($_POST);    
                     $status = $this->getStatus();
                     return json_encode(["status"=>$status]);      
                 }                
@@ -118,7 +109,8 @@ class POST{
 }
 
 $test = new POST();
-$test->cadastro() . $test->selectAll();
+echo $test->cadastro(); 
+$test->selectAll();
 
 
 
