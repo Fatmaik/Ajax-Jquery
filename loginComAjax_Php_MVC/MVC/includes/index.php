@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Ajax request with jQuery</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
-    <script src="js/jquery.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/lb/jquery.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 <body>
 <main>

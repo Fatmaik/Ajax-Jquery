@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    
    // requiest acontece quando o formulario settar o submit
     $("#AjaxRequest").submit(function(prevent){
         prevent.preventDefault();
@@ -18,7 +18,7 @@ $(document).ready(function(){
  
     var sel = $.ajax({
         method   : "GET",
-        url      : "test2.php",
+        url      : "classGet.php",
         data     : {GET : "GET"}, // retornando o FetchAll do metodo PHP para dentro deste "GET"
         dataType : "json"
     }).done(function(table) {
