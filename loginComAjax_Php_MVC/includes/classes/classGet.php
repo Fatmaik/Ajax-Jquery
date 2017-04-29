@@ -19,5 +19,5 @@ class classGet {
     }
 }
 $Con = new ClassConnect();
-$t = new ClassGet($Con);
-echo $t->selAll();
+$classGet = new ClassGet($Con);
+echo $classGet->selAll();
