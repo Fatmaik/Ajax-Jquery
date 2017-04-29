@@ -9,11 +9,13 @@
 </head>
 <body>
 <main>
-   
+    <?php require_once 'classes/classPost.php'; 
+        
+    ?>
     <section class="container"> 
         <h1>Ajax request with jQuery</h1>
         <span id="status"></span><br><br>
-        <form id="AjaxRequest" method="GET">
+        <form id="AjaxRequest" method="POST">
         
             <div class="form-group">
                 <label>Name</label>

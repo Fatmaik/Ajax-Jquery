@@ -6,11 +6,11 @@ class ClassConnect {
 
     public function Con() {
         try{
-            return $pdo = new \PDO($this->dsn, $this->dbuser, $this->dbpass);
+            return $pdo = new \PDO($this->dsn, $this->dbuser, $this->dbpass);           
         }catch(PDOException $e) {
-            echo  "Falha: " . $e.getMessage();
+            echo "Falha: " . $e.getMessage();
         }
-    }
+    } 
 }
 $con = new ClassConnect();
-$db = $con->Con();
+
