@@ -9,7 +9,8 @@ class classGet {
     private $pdo;
 
     public function __construct($pdo) {
-        $this->pdo = $pdo->Con();       
+        $this->pdo = $pdo->Con();
+        echo $this->selAll();       
     }
     public function selAll() {
         $query = $this->pdo->prepare("SELECT * FROM test1");
@@ -20,4 +21,4 @@ class classGet {
 }
 $Con = new ClassConnect();
 $classGet = new ClassGet($Con);
-echo $classGet->selAll();
+// echo $classGet->selAll();

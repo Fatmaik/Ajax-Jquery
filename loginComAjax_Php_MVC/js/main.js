@@ -2,6 +2,7 @@ $(document).ready(function(){
     
    // requiest acontece quando o formulario settar o submit
     $("#AjaxRequest").submit(function(prevent){
+        
         prevent.preventDefault();
         var form = $(this).serialize();  // recebe todos os campos do form
         var request = $.ajax({           // variavel que recebe os valores por Ajax
@@ -12,7 +13,7 @@ $(document).ready(function(){
             
         });
         request.done(function(e) {
-                $("#status").html(e.status);
+            $("#status").html(e.status);
         });    
     });
  
